@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>Data Request </div>
+    <div class="box">
+
+    </div>
+    <script>
+        var xhr = new XMLHttpRequest()
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                    console.log(xhr.responseText)
+                    var data = JSON.parse(xhr.responseText)
+                    var str = ''
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<div>name: " + data[i].learner_id + "</div><div>price: " + data[i].learner_name + "</div>"
+                    }
+                    document.querySelector('.box').innerHTML = str
+                } else {
+                    console.log("Request was unsuccessful: " + xhr.status)
+                }
+            }
+        }
+
+        Xhr.open('get', 'http://localhost:3000/test?', true)
+        xhr.send(null)
+    </script>
+</body>
+
+</html>
